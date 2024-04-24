@@ -1,0 +1,10 @@
+react-diagramsの始め方
+
+1.Reactプロジェクトの作成
+今回はTSで作成してみる
+"npx create-react-app my-app --template typescript"
+
+2.react-diagramsのインストール
+yarnやnpmでインストールできるっぽい
+今回はnpmでインストール
+"npm install @projectstorm/react-diagrams"
