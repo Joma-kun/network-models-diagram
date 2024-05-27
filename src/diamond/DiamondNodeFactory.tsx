@@ -10,7 +10,7 @@ export class DiamondNodeFactory extends AbstractReactFactory<DiamondNodeModel, D
 	}
 
 	generateReactWidget(event: { model: any; }): JSX.Element {
-		return <DiamondNodeWidget engine={this.engine} size={50} node={event.model} />;
+		return <DiamondNodeWidget engine={this.engine} size={75} node={event.model} />;
 	}
 
 	generateModel(event: any) {

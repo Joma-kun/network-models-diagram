@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import _keys from 'lodash/keys';
 import styled from '@emotion/styled';
@@ -8,6 +9,8 @@ import { DefaultNodeModel } from '@projectstorm/react-diagrams';
 import { CanvasWidget } from '@projectstorm/react-canvas-core';
 import { DiagramCanvasWidget } from '../DiagramCanvasWidget';
 import { Button } from '@mui/material';
+import { DiamondNodeModel } from '../diamond/DiamondNodeModel';
+import { DiamondNodeWidget } from '../diamond/DiamondNodeWidget';
 
 export interface BodyWidgetProps {
     app: Application;
@@ -61,17 +64,20 @@ export class BodyWidget extends React.Component<BodyWidgetProps> {
         console.log("Links Data:", linksData);
         console.log("Nodes Data:", nodesData);
     };
+
+
     render() {
         return (
             <S.Body>
                 <S.Header>
-                    <div className="title">Diagrm to Model</div>
+                    <div className="title">Diagram to Model</div>
                     <Button onClick={this.handleSerialize}>出力</Button>
                 </S.Header>
                 <S.Content>
                     <TrayWidget>
                         <TrayItemWidget model={{ type: 'in' }} name="In Node" color="rgb(192,255,0)" />
                         <TrayItemWidget model={{ type: 'out' }} name="Out Node" color="rgb(0,192,255)" />
+                        <TrayItemWidget model={{ type: 'diamond' }} name="Diamond Node" color="rgb(0,192,255)" />
                     </TrayWidget>
                     <S.Layer
                         onDrop={(event) => {
@@ -82,6 +88,8 @@ export class BodyWidget extends React.Component<BodyWidgetProps> {
                             if (data.type === 'in') {
                                 node = new DefaultNodeModel('Node ' + (nodesCount + 1), 'rgb(192,255,0)');
                                 node.addInPort('In');
+                            } else if(data.type === "diamond") {
+                                node = new DiamondNodeModel();
                             } else {
                                 node = new DefaultNodeModel('Node ' + (nodesCount + 1), 'rgb(0,192,255)');
                                 node.addOutPort('Out');
