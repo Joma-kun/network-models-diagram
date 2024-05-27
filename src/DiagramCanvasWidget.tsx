@@ -1,10 +1,12 @@
 import * as React from 'react';
 import styled from '@emotion/styled';
 import { css, Global } from '@emotion/react';
+import { Application } from './Application';
 
 export interface DiagramCanvasWidgetProps {
 	color?: string;
 	background?: string;
+	app: Application
 }
 
 namespace S {
