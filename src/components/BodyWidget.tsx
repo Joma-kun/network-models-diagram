@@ -47,14 +47,12 @@ export class BodyWidget extends React.Component<BodyWidgetProps> {
         const serializedData = JSON.stringify(model.serialize());
         const jsonObject = JSON.parse(serializedData);
 
-        // リンクのsourceとtargetのIDを抜き出す
         const linksData = jsonObject.layers
             .filter((layer: any) => layer.type === 'diagram-links')
             .map((layer: any) => Object.values(layer.models))
             .flat()
             .map((link: any) => ({ source: link.source, target: link.target }));
 
-        // ノードのIDを抜き出す
         const nodesData = jsonObject.layers
             .filter((layer: any) => layer.type === 'diagram-nodes')
             .map((layer: any) => Object.keys(layer.models))

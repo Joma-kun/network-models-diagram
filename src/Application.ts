@@ -1,4 +1,8 @@
-import createEngine, { DiagramModel, DefaultNodeModel } from '@projectstorm/react-diagrams';
+import createEngine, { DiagramModel, DefaultNodeModel, PortModelAlignment } from '@projectstorm/react-diagrams';
+import { DiamondNodeModel } from './diamond/DiamondNodeModel';
+import { DiamondPortModel } from './diamond/DiamondPortModel';
+import { SimplePortFactory } from './diamond/SimplePortFactory';
+import { DiamondNodeFactory } from './diamond/DiamondNodeFactory';
 
 export class Application {
     protected activeModel!: DiagramModel;
@@ -7,8 +11,9 @@ export class Application {
     constructor() {
         this.diagramEngine = createEngine();
         this.newModel();
+        
     }
-
+    
     public newModel() {
         this.activeModel = new DiagramModel();
         this.diagramEngine.setModel(this.activeModel);
@@ -21,9 +26,16 @@ export class Application {
         let port2 = node2.addInPort('In');
         node2.setPosition(400, 100);
 
+        var node3 = new DiamondNodeModel();
+        node3.setPosition(250, 200);
+
         let link1 = port.link(port2);
 
-        this.activeModel.addAll(node1, node2, link1);
+        // ファクトリーを登録
+        this.diagramEngine.getPortFactories().registerFactory(new SimplePortFactory('diamond', (config) => new DiamondPortModel(PortModelAlignment.LEFT)));
+        this.diagramEngine.getNodeFactories().registerFactory(new DiamondNodeFactory());
+
+        this.activeModel.addAll(node1, node2, node3, link1);
     }
 
     public getActiveDiagram(): DiagramModel {
@@ -33,5 +45,4 @@ export class Application {
     public getDiagramEngine(): any {
         return this.diagramEngine;
     }
-    
 }
