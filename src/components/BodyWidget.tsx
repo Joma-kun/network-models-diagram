@@ -7,6 +7,7 @@ import { TrayItemWidget } from '../components/TrayItemWidget';
 import { DefaultNodeModel } from '@projectstorm/react-diagrams';
 import { CanvasWidget } from '@projectstorm/react-canvas-core';
 import { DiagramCanvasWidget } from '../DiagramCanvasWidget';
+import { Button } from '@mui/material';
 
 export interface BodyWidgetProps {
     app: Application;
@@ -40,11 +41,34 @@ const S = {
 };
 
 export class BodyWidget extends React.Component<BodyWidgetProps> {
+    handleSerialize = () => {
+        const { app } = this.props;
+        const model = app.getActiveDiagram();
+        const serializedData = JSON.stringify(model.serialize());
+        const jsonObject = JSON.parse(serializedData);
+
+        // リンクのsourceとtargetのIDを抜き出す
+        const linksData = jsonObject.layers
+            .filter((layer: any) => layer.type === 'diagram-links')
+            .map((layer: any) => Object.values(layer.models))
+            .flat()
+            .map((link: any) => ({ source: link.source, target: link.target }));
+
+        // ノードのIDを抜き出す
+        const nodesData = jsonObject.layers
+            .filter((layer: any) => layer.type === 'diagram-nodes')
+            .map((layer: any) => Object.keys(layer.models))
+            .flat();
+
+        console.log("Links Data:", linksData);
+        console.log("Nodes Data:", nodesData);
+    };
     render() {
         return (
             <S.Body>
                 <S.Header>
-                    <div className="title">Storm React Diagrams - DnD demo</div>
+                    <div className="title">Diagrm to Model</div>
+                    <Button onClick={this.handleSerialize}>出力</Button>
                 </S.Header>
                 <S.Content>
                     <TrayWidget>
