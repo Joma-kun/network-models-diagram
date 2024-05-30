@@ -1,8 +1,11 @@
-import createEngine, { DiagramModel, DefaultNodeModel, PortModelAlignment } from '@projectstorm/react-diagrams';
-import { DiamondNodeModel } from './diamond/DiamondNodeModel';
-import { DiamondPortModel } from './diamond/DiamondPortModel';
-import { SimplePortFactory } from './diamond/SimplePortFactory';
-import { DiamondNodeFactory } from './diamond/DiamondNodeFactory';
+import createEngine, { DiagramModel, PortModelAlignment } from '@projectstorm/react-diagrams';
+import { SimplePortFactory } from './Router/SimplePortFactory';
+import { RouterNodeModel } from './Router/RouterNodeModel';
+import { RouterPortModel } from './Router/RouterPortModel';
+import { RouterNodeFactory } from './Router/RouterNodeFactory';
+import { SwitchNodeModel } from './Switch/SwitchNodeModel';
+import { SwitchPortModel } from './Switch/SwitchPortModel';
+import { SwitchNodeFactory } from './Switch/SwitchNodeFactory';
 
 export class Application {
     protected activeModel!: DiagramModel;
@@ -18,24 +21,21 @@ export class Application {
         this.activeModel = new DiagramModel();
         this.diagramEngine.setModel(this.activeModel);
 
-        var node1 = new DefaultNodeModel('Node 1', 'rgb(0,192,255)');
-        let port = node1.addOutPort('Out');
-        node1.setPosition(100, 100);
+        var node1 = new RouterNodeModel();
+        node1.setPosition(100, 200);
 
-        var node2 = new DefaultNodeModel('Node 2', 'rgb(192,255,0)');
-        let port2 = node2.addInPort('In');
-        node2.setPosition(400, 100);
+        var node2 = new SwitchNodeModel();
+        node2.setPosition(500, 200);
 
-        var node3 = new DiamondNodeModel();
-        node3.setPosition(250, 200);
 
-        let link1 = port.link(port2);
 
-        // ファクトリーを登録
-        this.diagramEngine.getPortFactories().registerFactory(new SimplePortFactory('diamond', (config) => new DiamondPortModel(PortModelAlignment.LEFT)));
-        this.diagramEngine.getNodeFactories().registerFactory(new DiamondNodeFactory());
 
-        this.activeModel.addAll(node1, node2, node3, link1);
+        this.diagramEngine.getPortFactories().registerFactory(new SimplePortFactory('router', (config) => new RouterPortModel(PortModelAlignment.LEFT)));
+        this.diagramEngine.getNodeFactories().registerFactory(new RouterNodeFactory());
+        this.diagramEngine.getPortFactories().registerFactory(new SimplePortFactory('switch', (config) => new SwitchPortModel(PortModelAlignment.LEFT)));
+        this.diagramEngine.getNodeFactories().registerFactory(new SwitchNodeFactory());
+
+        this.activeModel.addAll(node1, node2);
     }
 
     public getActiveDiagram(): DiagramModel {

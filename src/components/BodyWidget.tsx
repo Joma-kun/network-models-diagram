@@ -9,8 +9,8 @@ import { DefaultNodeModel } from '@projectstorm/react-diagrams';
 import { CanvasWidget } from '@projectstorm/react-canvas-core';
 import { DiagramCanvasWidget } from '../DiagramCanvasWidget';
 import { Button } from '@mui/material';
-import { DiamondNodeModel } from '../diamond/DiamondNodeModel';
-import { DiamondNodeWidget } from '../diamond/DiamondNodeWidget';
+import { RouterNodeModel } from '../Router/RouterNodeModel';
+import { SwitchNodeModel } from '../Switch/SwitchNodeModel';
 
 export interface BodyWidgetProps {
     app: Application;
@@ -58,13 +58,27 @@ export class BodyWidget extends React.Component<BodyWidgetProps> {
 
         const nodesData = jsonObject.layers
             .filter((layer: any) => layer.type === 'diagram-nodes')
-            .map((layer: any) => Object.keys(layer.models))
-            .flat();
-
+            .map((layer: any) => Object.values(layer.models))
+            .flat()
+            .map((node: any) => {
+                const modelNode = app.getDiagramEngine().getModel().getNode(node.id);
+                if (modelNode instanceof RouterNodeModel) {
+                    return {
+                        id: node.id,
+                        inputs: modelNode.getInputs()
+                    };
+                } else if (modelNode instanceof SwitchNodeModel) {
+                    return {
+                        id: node.id,
+                        inputs: modelNode.getInputs()
+                    };
+                }
+                return { id: node.id };
+            });
+            
         console.log("Links Data:", linksData);
         console.log("Nodes Data:", nodesData);
     };
-
 
     render() {
         return (
@@ -75,9 +89,11 @@ export class BodyWidget extends React.Component<BodyWidgetProps> {
                 </S.Header>
                 <S.Content>
                     <TrayWidget>
-                        <TrayItemWidget model={{ type: 'in' }} name="In Node" color="rgb(192,255,0)" />
+                        {/* <TrayItemWidget model={{ type: 'in' }} name="In Node" color="rgb(192,255,0)" />
                         <TrayItemWidget model={{ type: 'out' }} name="Out Node" color="rgb(0,192,255)" />
-                        <TrayItemWidget model={{ type: 'diamond' }} name="Diamond Node" color="rgb(0,192,255)" />
+                        <TrayItemWidget model={{ type: 'diamond' }} name="Diamond Node" color="rgb(0,192,255)" /> */}
+                        <TrayItemWidget model={{ type: 'router' }} name="Router Node" color="rgb(192,255,0)" />
+                        <TrayItemWidget model={{ type: 'switch' }} name="Switch Node" color="rgb(0,192,255)" />
                     </TrayWidget>
                     <S.Layer
                         onDrop={(event) => {
@@ -90,6 +106,10 @@ export class BodyWidget extends React.Component<BodyWidgetProps> {
                                 node.addInPort('In');
                             } else if(data.type === "diamond") {
                                 node = new DiamondNodeModel();
+                            } else if(data.type === "router") {
+                                node = new RouterNodeModel();
+                            } else if(data.type === "switch") {
+                                node = new SwitchNodeModel();
                             } else {
                                 node = new DefaultNodeModel('Node ' + (nodesCount + 1), 'rgb(0,192,255)');
                                 node.addOutPort('Out');
