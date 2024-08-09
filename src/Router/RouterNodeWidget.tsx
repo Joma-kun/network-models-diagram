@@ -116,11 +116,44 @@ export class RouterNodeWidget extends React.Component<RouterNodeWidgetProps, { i
                 }
 				<PortWidget
 					style={{
-						left: this.props.size / 2 - 8,
-						top: this.props.size / 2 - 10,
+						left: this.props.size / 2 - 43,
+						top: this.props.size / 2 + 17,
+						position: 'absolute'
+					}}
+					port={node.getPort(PortModelAlignment.LEFT)}
+					engine={this.props.engine}
+				>
+					<S.Port />
+				</PortWidget>
+                <PortWidget
+					style={{
+						left: this.props.size / 2 + 28,
+						top: this.props.size / 2 - 37,
+						position: 'absolute'
+					}}
+					port={node.getPort(PortModelAlignment.TOP)}
+					engine={this.props.engine}
+				>
+					<S.Port />
+				</PortWidget>
+                <PortWidget
+					style={{
+						left: this.props.size / 2 + 28,
+						top: this.props.size / 2 + 17,
 						position: 'absolute'
 					}}
 					port={node.getPort(PortModelAlignment.RIGHT)}
+					engine={this.props.engine}
+				>
+					<S.Port />
+				</PortWidget>
+                <PortWidget
+					style={{
+						left: this.props.size / 2 - 43,
+						top: this.props.size / 2 - 37,
+						position: 'absolute'
+					}}
+					port={node.getPort(PortModelAlignment.BOTTOM)}
 					engine={this.props.engine}
 				>
 					<S.Port />

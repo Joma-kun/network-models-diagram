@@ -5,16 +5,12 @@ import styled from '@emotion/styled';
 import { TrayWidget } from '../components/TrayWidget';
 import { Application } from '../Application';
 import { TrayItemWidget } from '../components/TrayItemWidget';
-import { DefaultNodeModel } from '@projectstorm/react-diagrams';
+import { DefaultNodeModel, DiagramModel } from '@projectstorm/react-diagrams';
 import { CanvasWidget } from '@projectstorm/react-canvas-core';
 import { DiagramCanvasWidget } from '../DiagramCanvasWidget';
-import { Button } from '@mui/material';
+import { Button, Grid } from '@mui/material';
 import { RouterNodeModel } from '../Router/RouterNodeModel';
 import { SwitchNodeModel } from '../Switch/SwitchNodeModel';
-
-export interface BodyWidgetProps {
-    app: Application;
-}
 
 const S = {
     Body: styled.div`
@@ -43,88 +39,139 @@ const S = {
     `
 };
 
-export class BodyWidget extends React.Component<BodyWidgetProps> {
-    handleSerialize = () => {
+const ButtonGrid = styled(Grid)`
+    && {
+        margin-left: 20px;
+    }
+`;
+
+export class BodyWidget extends React.Component<{ app: Application }> {
+
+    handleSerialize = (key) => {
         const { app } = this.props;
-        const model = app.getActiveDiagram();
+        const engine = app.getDiagramEngine();
+
+        const model = engine.getModel();
         const serializedData = JSON.stringify(model.serialize());
-        const jsonObject = JSON.parse(serializedData);
+        localStorage.setItem(key, serializedData);
+        console.log(`Diagram serialized and saved to ${key} in localStorage`);
+        console.log(serializedData);
+    };
 
-        const linksData = jsonObject.layers
-            .filter((layer: any) => layer.type === 'diagram-links')
-            .map((layer: any) => Object.values(layer.models))
-            .flat()
-            .map((link: any) => ({ source: link.source, target: link.target }));
+    handleDeserialize = (key) => {
+        const { app } = this.props;
+        const engine = app.getDiagramEngine();
 
-        const nodesData = jsonObject.layers
-            .filter((layer: any) => layer.type === 'diagram-nodes')
-            .map((layer: any) => Object.values(layer.models))
-            .flat()
-            .map((node: any) => {
-                const modelNode = app.getDiagramEngine().getModel().getNode(node.id);
-                if (modelNode instanceof RouterNodeModel) {
-                    return {
-                        id: node.id,
-                        inputs: modelNode.getInputs()
-                    };
-                } else if (modelNode instanceof SwitchNodeModel) {
-                    return {
-                        id: node.id,
-                        inputs: modelNode.getInputs()
-                    };
-                }
-                return { id: node.id };
-            });
-            
-        console.log("Links Data:", linksData);
-        console.log("Nodes Data:", nodesData);
+        const savedDiagram = localStorage.getItem(key);
+        if (savedDiagram) {
+            const model2 = new DiagramModel();
+            model2.deserializeModel(JSON.parse(savedDiagram), engine);
+            engine.setModel(model2);
+            this.forceUpdate();
+            console.log(`Diagram deserialized and loaded from ${key} in localStorage`);
+        }
+    };
+
+    handleSerializeToFile = () => {
+        const { app } = this.props;
+        const engine = app.getDiagramEngine();
+
+        const model = engine.getModel();
+        const serializedData = JSON.stringify(model.serialize(), null, 2);
+        const blob = new Blob([serializedData], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'diagram.json';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        
+        console.log('Diagram serialized and saved as a file');
+    };
+
+    handleDrop = (event) => {
+        const { app } = this.props;
+        const engine = app.getDiagramEngine();
+
+        var data = JSON.parse(event.dataTransfer.getData('storm-diagram-node'));
+        var nodesCount = _keys(engine.getModel().getNodes()).length;
+
+        var node: DefaultNodeModel | null = null;
+        if (data.type === 'in') {
+            node = new DefaultNodeModel('Node ' + (nodesCount + 1), 'rgb(192,255,0)');
+            node.addInPort('In');
+        } else if (data.type === 'router') {
+            node = new RouterNodeModel();
+        } else if (data.type === 'switch') {
+            node = new SwitchNodeModel();
+        } else {
+            node = new DefaultNodeModel('Node ' + (nodesCount + 1), 'rgb(0,192,255)');
+            node.addOutPort('Out');
+        }
+        var point = engine.getRelativeMousePoint(event);
+        node.setPosition(point);
+        engine.getModel().addNode(node);
+        this.forceUpdate();
     };
 
     render() {
+        const { app } = this.props;
         return (
             <S.Body>
                 <S.Header>
                     <div className="title">Diagram to Model</div>
-                    <Button onClick={this.handleSerialize}>出力</Button>
+                    <ButtonGrid container spacing={2}>
+                        <Grid item>
+                            <Button variant="contained" color="primary" onClick={() => this.handleSerialize('savedDiagram1')}>Save Slot 1</Button>
+                        </Grid>
+                        <Grid item>
+                            <Button variant="contained" color="primary" onClick={() => this.handleSerialize('savedDiagram2')}>Save Slot 2</Button>
+                        </Grid>
+                        <Grid item>
+                            <Button variant="contained" color="primary" onClick={() => this.handleSerialize('savedDiagram3')}>Save Slot 3</Button>
+                        </Grid>
+                        <Grid item>
+                            <Button variant="contained" color="primary" onClick={() => this.handleSerialize('savedDiagram4')}>Save Slot 4</Button>
+                        </Grid>
+                        <Grid item>
+                            <Button variant="contained" color="primary" onClick={() => this.handleSerialize('savedDiagram5')}>Save Slot 5</Button>
+                        </Grid>
+                        <Grid item>
+                            <Button variant="contained" color="secondary" onClick={() => this.handleDeserialize('savedDiagram1')}>Load Slot 1</Button>
+                        </Grid>
+                        <Grid item>
+                            <Button variant="contained" color="secondary" onClick={() => this.handleDeserialize('savedDiagram2')}>Load Slot 2</Button>
+                        </Grid>
+                        <Grid item>
+                            <Button variant="contained" color="secondary" onClick={() => this.handleDeserialize('savedDiagram3')}>Load Slot 3</Button>
+                        </Grid>
+                        <Grid item>
+                            <Button variant="contained" color="secondary" onClick={() => this.handleDeserialize('savedDiagram4')}>Load Slot 4</Button>
+                        </Grid>
+                        <Grid item>
+                            <Button variant="contained" color="secondary" onClick={() => this.handleDeserialize('savedDiagram5')}>Load Slot 5</Button>
+                        </Grid>
+                        <Grid item>
+                            <Button variant="contained" onClick={this.handleSerializeToFile}>Save to File</Button>
+                        </Grid>
+                    </ButtonGrid>
                 </S.Header>
                 <S.Content>
                     <TrayWidget>
-                        {/* <TrayItemWidget model={{ type: 'in' }} name="In Node" color="rgb(192,255,0)" />
-                        <TrayItemWidget model={{ type: 'out' }} name="Out Node" color="rgb(0,192,255)" />
-                        <TrayItemWidget model={{ type: 'diamond' }} name="Diamond Node" color="rgb(0,192,255)" /> */}
                         <TrayItemWidget model={{ type: 'router' }} name="Router Node" color="rgb(192,255,0)" />
                         <TrayItemWidget model={{ type: 'switch' }} name="Switch Node" color="rgb(0,192,255)" />
                     </TrayWidget>
                     <S.Layer
-                        onDrop={(event) => {
-                            var data = JSON.parse(event.dataTransfer.getData('storm-diagram-node'));
-                            var nodesCount = _keys(this.props.app.getDiagramEngine().getModel().getNodes()).length;
-
-                            var node: DefaultNodeModel | null = null;
-                            if (data.type === 'in') {
-                                node = new DefaultNodeModel('Node ' + (nodesCount + 1), 'rgb(192,255,0)');
-                                node.addInPort('In');
-                            } else if(data.type === "diamond") {
-                                node = new DiamondNodeModel();
-                            } else if(data.type === "router") {
-                                node = new RouterNodeModel();
-                            } else if(data.type === "switch") {
-                                node = new SwitchNodeModel();
-                            } else {
-                                node = new DefaultNodeModel('Node ' + (nodesCount + 1), 'rgb(0,192,255)');
-                                node.addOutPort('Out');
-                            }
-                            var point = this.props.app.getDiagramEngine().getRelativeMousePoint(event);
-                            node.setPosition(point);
-                            this.props.app.getDiagramEngine().getModel().addNode(node);
-                            this.forceUpdate();
-                        }}
+                        onDrop={this.handleDrop}
                         onDragOver={(event) => {
                             event.preventDefault();
                         }}
                     >
-                        <DiagramCanvasWidget app={this.props.app}>
-                            <CanvasWidget engine={this.props.app.getDiagramEngine()} />
+                        <DiagramCanvasWidget app={app}>
+                            <CanvasWidget engine={app.getDiagramEngine()} />
                         </DiagramCanvasWidget>
                     </S.Layer>
                 </S.Content>

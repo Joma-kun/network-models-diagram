@@ -1,5 +1,7 @@
 import { NodeModel, NodeModelGenerics, PortModelAlignment } from '@projectstorm/react-diagrams';
 import { RouterPortModel } from './RouterPortModel';
+import { RedPortModel } from '../RedLink/RedPortModel';
+import { BluePortModel } from '../BlueLink/BluePortModel';
 
 export interface RouterNodeModelGenerics {
 	PORT: RouterPortModel;
@@ -12,10 +14,10 @@ export class RouterNodeModel extends NodeModel<NodeModelGenerics & RouterNodeMod
 		super({
 			type: 'router'
 		});
-		this.addPort(new RouterPortModel(PortModelAlignment.TOP));
-		this.addPort(new RouterPortModel(PortModelAlignment.LEFT));
-		this.addPort(new RouterPortModel(PortModelAlignment.BOTTOM));
-		this.addPort(new RouterPortModel(PortModelAlignment.RIGHT));
+		this.addPort(new BluePortModel(PortModelAlignment.TOP));
+		this.addPort(new BluePortModel(PortModelAlignment.LEFT));
+		this.addPort(new RedPortModel(PortModelAlignment.BOTTOM));
+		this.addPort(new RedPortModel(PortModelAlignment.RIGHT));
 
 		this.inputs = { DeviceModel: '', Hostname: ''};
     }
