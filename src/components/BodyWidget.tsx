@@ -140,19 +140,6 @@ export class BodyWidget extends React.Component<{ app: Application }> {
                             <Button variant="contained" color="primary" onClick={() => this.handleSerialize('savedDiagram5')}>Save Slot 5</Button>
                         </Grid>
                         <Grid item>
-                            <Button variant="contained" color="secondary" onClick={() => this.handleDeserialize('savedDiagram1')}>Load Slot 1</Button>
-                        </Grid>
-                        <Grid item>
-                            <Button variant="contained" color="secondary" onClick={() => this.handleDeserialize('savedDiagram2')}>Load Slot 2</Button>
-                        </Grid>
-                        <Grid item>
-                            <Button variant="contained" color="secondary" onClick={() => this.handleDeserialize('savedDiagram3')}>Load Slot 3</Button>
-                        </Grid>
-                        <Grid item>
-                            <Button variant="contained" color="secondary" onClick={() => this.handleDeserialize('savedDiagram4')}>Load Slot 4</Button>
-                        </Grid>
-                        <Grid item>
-                            <Button variant="contained" color="secondary" onClick={() => this.handleDeserialize('savedDiagram5')}>Load Slot 5</Button>
                         </Grid>
                         <Grid item>
                             <Button variant="contained" onClick={this.handleSerializeToFile}>Save to File</Button>
