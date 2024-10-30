@@ -4,22 +4,24 @@ import { RedPortModel } from '../RedLink/RedPortModel';
 import { BluePortModel } from '../BlueLink/BluePortModel';
 
 export interface RouterNodeModelGenerics {
-	PORT: RouterPortModel;
+    PORT: RouterPortModel;
 }
 
 export class RouterNodeModel extends NodeModel<NodeModelGenerics & RouterNodeModelGenerics> {
-	inputs: { DeviceModel: string; Hostname: string;};
+    inputs: { DeviceModel: string; Hostname: string; };
+    routerName: string;
 
-	constructor() {
-		super({
-			type: 'router'
-		});
-		this.addPort(new BluePortModel(PortModelAlignment.TOP));
-		this.addPort(new BluePortModel(PortModelAlignment.LEFT));
-		this.addPort(new RedPortModel(PortModelAlignment.BOTTOM));
-		this.addPort(new RedPortModel(PortModelAlignment.RIGHT));
+    constructor(routerName: string) {
+        super({
+            type: 'router'
+        });
+        this.routerName = routerName;
+        this.addPort(new BluePortModel(PortModelAlignment.TOP));
+        this.addPort(new BluePortModel(PortModelAlignment.LEFT));
+        this.addPort(new RedPortModel(PortModelAlignment.BOTTOM));
+        this.addPort(new RedPortModel(PortModelAlignment.RIGHT));
 
-		this.inputs = { DeviceModel: '', Hostname: ''};
+        this.inputs = { DeviceModel: '', Hostname: ''};
     }
 
     setInputs(inputs: { DeviceModel: string; Hostname: string;}) {
@@ -28,5 +30,9 @@ export class RouterNodeModel extends NodeModel<NodeModelGenerics & RouterNodeMod
 
     getInputs() {
         return this.inputs;
+    }
+    
+    getRouterName() {
+        return this.routerName;
     }
 }

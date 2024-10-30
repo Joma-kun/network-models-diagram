@@ -14,6 +14,7 @@ export class BlueNodeFactory extends AbstractReactFactory<RouterNodeModel, Diagr
 	}
 
 	generateModel(event: any) {
-		return new RouterNodeModel();
+		const routerName = event?.name || 'DefaultRouter';
+        return new RouterNodeModel(routerName);
 	}
 }

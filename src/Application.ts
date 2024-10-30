@@ -28,15 +28,15 @@ export class Application {
         this.activeModel = new DiagramModel();
         this.diagramEngine.setModel(this.activeModel);
 
-        var node1 = new RouterNodeModel();
-        var node2 = new RouterNodeModel();
-        var node3 = new RouterNodeModel();
-        var node4 = new RouterNodeModel();
-        var node5 = new RouterNodeModel();
-        var node6 = new RouterNodeModel();
-        var node7 = new RouterNodeModel();
-        var node8 = new RouterNodeModel();
-        var node9 = new RouterNodeModel();
+        var node1 = new RouterNodeModel("1");
+        var node2 = new RouterNodeModel("2");
+        var node3 = new RouterNodeModel("3");
+        var node4 = new RouterNodeModel("4");
+        var node5 = new RouterNodeModel("5");
+        var node6 = new RouterNodeModel("6");
+        var node7 = new RouterNodeModel("7");
+        var node8 = new RouterNodeModel("8");
+        var node9 = new RouterNodeModel("9");
         node1.setPosition(600, 0);
         node2.setPosition(600, 200);
         node3.setPosition(100, 200);

@@ -14,6 +14,7 @@ export class RedNodeFactory extends AbstractReactFactory<RouterNodeModel, Diagra
 	}
 
 	generateModel(event: any) {
-		return new RouterNodeModel();
+		const routerName = event?.name || 'DefaultRouter';
+        return new RouterNodeModel(routerName);
 	}
 }

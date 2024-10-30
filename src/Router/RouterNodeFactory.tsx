@@ -14,6 +14,7 @@ export class RouterNodeFactory extends AbstractReactFactory<RouterNodeModel, Dia
 	}
 
 	generateModel(event: any) {
-		return new RouterNodeModel();
+		const routerName = event?.name || 'DefaultRouter';
+        return new RouterNodeModel(routerName);
 	}
 }

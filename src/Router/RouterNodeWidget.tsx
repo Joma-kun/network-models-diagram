@@ -75,10 +75,16 @@ export class RouterNodeWidget extends React.Component<RouterNodeWidgetProps, { i
                     height: this.props.size
                 }}
             >
+                <p style={{
+                position: 'absolute',
+                left: '50%',
+                transform: 'translate(-50%, -90%)',
+                fontSize: '28px'
+            }}>{node.getRouterName()}</p>
                 <S.ImageContainer size={this.props.size}>
                     <img src="router.png" alt="Router" draggable="false"/>
                 </S.ImageContainer>
-                <button
+                {/* <button
                     style={{
                         position: 'absolute',
                         top: '65%',
@@ -88,8 +94,8 @@ export class RouterNodeWidget extends React.Component<RouterNodeWidgetProps, { i
                     onClick={this.handleButtonClick}
                 >
                     Menu
-                </button>
-                {this.state.isMenuVisible &&
+                </button> */}
+                {/* {this.state.isMenuVisible &&
                     <div style={{ position: 'absolute', top: '50%', left: '100%', transform: 'translate(0, -50%)', background: 'white', border: '1px solid black', padding: '10px' }}>
                         <div>
                             <label>
@@ -113,7 +119,7 @@ export class RouterNodeWidget extends React.Component<RouterNodeWidgetProps, { i
                         </div>
                         <button onClick={this.handleInputSubmit}>Close</button>
                     </div>
-                }
+                } */}
 				<PortWidget
 					style={{
 						left: this.props.size / 2 - 43,

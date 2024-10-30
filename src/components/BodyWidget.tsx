@@ -147,10 +147,6 @@ export class BodyWidget extends React.Component<{ app: Application }> {
                     </ButtonGrid>
                 </S.Header>
                 <S.Content>
-                    <TrayWidget>
-                        <TrayItemWidget model={{ type: 'router' }} name="Router Node" color="rgb(192,255,0)" />
-                        <TrayItemWidget model={{ type: 'switch' }} name="Switch Node" color="rgb(0,192,255)" />
-                    </TrayWidget>
                     <S.Layer
                         onDrop={this.handleDrop}
                         onDragOver={(event) => {
