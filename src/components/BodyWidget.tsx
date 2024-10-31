@@ -122,29 +122,16 @@ export class BodyWidget extends React.Component<{ app: Application }> {
         return (
             <S.Body>
                 <S.Header>
-                    <div className="title">Diagram to Model</div>
-                    <ButtonGrid container spacing={2}>
+                    <div className="title" style={{width: "150px"}}>誤りパターン数:</div>
+                    <Button>aaa</Button>
+                    {/* <ButtonGrid container spacing={2}>
                         <Grid item>
                             <Button variant="contained" color="primary" onClick={() => this.handleSerialize('savedDiagram1')}>Save Slot 1</Button>
                         </Grid>
                         <Grid item>
                             <Button variant="contained" color="primary" onClick={() => this.handleSerialize('savedDiagram2')}>Save Slot 2</Button>
                         </Grid>
-                        <Grid item>
-                            <Button variant="contained" color="primary" onClick={() => this.handleSerialize('savedDiagram3')}>Save Slot 3</Button>
-                        </Grid>
-                        <Grid item>
-                            <Button variant="contained" color="primary" onClick={() => this.handleSerialize('savedDiagram4')}>Save Slot 4</Button>
-                        </Grid>
-                        <Grid item>
-                            <Button variant="contained" color="primary" onClick={() => this.handleSerialize('savedDiagram5')}>Save Slot 5</Button>
-                        </Grid>
-                        <Grid item>
-                        </Grid>
-                        <Grid item>
-                            <Button variant="contained" onClick={this.handleSerializeToFile}>Save to File</Button>
-                        </Grid>
-                    </ButtonGrid>
+                    </ButtonGrid> */}
                 </S.Header>
                 <S.Content>
                     <S.Layer

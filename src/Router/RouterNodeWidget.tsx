@@ -79,7 +79,8 @@ export class RouterNodeWidget extends React.Component<RouterNodeWidgetProps, { i
                 position: 'absolute',
                 left: '50%',
                 transform: 'translate(-50%, -90%)',
-                fontSize: '28px'
+                fontSize: '28px',
+                color: 'white'
             }}>{node.getRouterName()}</p>
                 <S.ImageContainer size={this.props.size}>
                     <img src="router.png" alt="Router" draggable="false"/>
