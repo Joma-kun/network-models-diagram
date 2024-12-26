@@ -165,6 +165,17 @@ export class RouterNodeWidget extends React.Component<RouterNodeWidgetProps, { i
 				>
 					<S.Port />
 				</PortWidget>
+                <PortWidget
+					style={{
+						left: this.props.size / 2 - 8,
+						top: this.props.size / 2 - 9,
+						position: 'absolute'
+					}}
+					port={node.getPort(PortModelAlignment.BOTTOM)}
+					engine={this.props.engine}
+				>
+					<S.Port />
+				</PortWidget>
             </div>
         );
     }

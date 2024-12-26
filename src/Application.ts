@@ -4,6 +4,10 @@ import { RouterNodeModel } from './Router/RouterNodeModel';
 import { RouterPortModel } from './Router/RouterPortModel';
 import { RouterNodeFactory } from './Router/RouterNodeFactory';
 import yaml from 'js-yaml';
+import { MemoPortModel } from './Memo/MemoPortModel';
+import { MemoNodeFactory } from './Memo/MemoNodeFactory';
+import { RedLinkFactory } from './RedLink/RedLinkFactory';
+import { BlueLinkFactory } from './BlueLink/BlueLinkFactory';
 
 export class Application {
     protected activeModel!: DiagramModel;
@@ -84,15 +88,27 @@ export class Application {
 
     public updateDisplayedRoutes(selectedRoutes: Record<string, boolean>) {
         const model = this.getActiveDiagram();
-
-        // 現在のリンクをすべて削除
+    
+        // 現在のリンクを削除 (Memo-Router 間のリンクは除外)
         Object.values(model.getLinks()).forEach((link) => {
-            model.removeLink(link);
+            const sourcePort = link.getSourcePort();
+            const targetPort = link.getTargetPort();
+    
+            // Memo-Router 間のリンクは削除対象から除外
+            const isMemoRouterLink =
+                (sourcePort && sourcePort.getNode().getType() === 'memo' &&
+                 targetPort && targetPort.getNode().getType() === 'router') ||
+                (sourcePort && sourcePort.getNode().getType() === 'router' &&
+                 targetPort && targetPort.getNode().getType() === 'memo');
+    
+            if (!isMemoRouterLink) {
+                model.removeLink(link);
+            }
         });
-
+    
         // リンクの通過回数をリセット
         this.linkCounters = {};
-
+    
         // 選択された経路に基づいて通過回数をカウント（青と赤）
         Object.entries(selectedRoutes).forEach(([routeKey, isSelected]) => {
             if (isSelected) {
@@ -101,7 +117,7 @@ export class Application {
                 this.countPassagesForRoute(startNode.toLowerCase(), endNode.toLowerCase(), this.redYamlRoutes, 'red');
             }
         });
-
+    
         // 通過回数に基づいてリンクを再生成（青と赤）
         Object.entries(selectedRoutes).forEach(([routeKey, isSelected]) => {
             if (isSelected) {
@@ -110,10 +126,11 @@ export class Application {
                 this.createLinksForRoute(startNode.toLowerCase(), endNode.toLowerCase(), this.redYamlRoutes, 'red', PortModelAlignment.TOP);
             }
         });
-
+    
         // 再描画
         this.diagramEngine.repaintCanvas();
     }
+    
 
     private countPassagesForRoute(
         startNode: string,
@@ -159,7 +176,7 @@ export class Application {
         portAlignment: PortModelAlignment
     ) {
         const calculateThickness = (passageCount: number) => {
-            return Math.min(Math.ceil(passageCount / 2), 10); // 1～2 -> 1, 3～4 -> 2, ..., 19～20 -> 10
+            return Math.min(Math.ceil(passageCount / 2), 10); // 太さを通過回数に応じて計算
         };
     
         let routeFound = false;
@@ -189,7 +206,7 @@ export class Application {
     
                         const link = new DefaultLinkModel({ color });
                         link.getOptions().curvyness = 0; // 直線に設定
-                        link.getOptions().width = 2; // 太さ設定
+                        link.getOptions().width = passageCount/2; // 太さを設定　よう確認
                         link.addLabel(`${passageCount}回`); // 通過回数ラベル
     
                         link.setSourcePort(sourceNode.getPort(portAlignment));
@@ -204,6 +221,7 @@ export class Application {
             console.warn(`指定された経路が見つかりませんでした: ${startNode} -> ${endNode}`);
         }
     }
+    
     
 
     private createCfNodes(cfNodes: Set<string>) {
@@ -234,10 +252,15 @@ export class Application {
 
     public newModel() {
         this.activeModel = new DiagramModel();
+        this.activeModel.setGridSize(50);
         this.diagramEngine.setModel(this.activeModel);
 
         this.diagramEngine.getPortFactories().registerFactory(new SimplePortFactory('router', (config) => new RouterPortModel(PortModelAlignment.LEFT)));
         this.diagramEngine.getNodeFactories().registerFactory(new RouterNodeFactory());
+        this.diagramEngine.getPortFactories().registerFactory(new SimplePortFactory('memo', (config) => new MemoPortModel(PortModelAlignment.LEFT)));
+        this.diagramEngine.getNodeFactories().registerFactory(new MemoNodeFactory());
+        this.diagramEngine.getLinkFactories().registerFactory(new RedLinkFactory());
+        this.diagramEngine.getLinkFactories().registerFactory(new BlueLinkFactory());
     }
 
     public getActiveDiagram(): DiagramModel {

@@ -6,6 +6,8 @@ import { ExpandLess, ExpandMore } from '@mui/icons-material';
 import { Application } from '../Application';
 import { CanvasWidget } from '@projectstorm/react-canvas-core';
 import { DiagramCanvasWidget } from '../DiagramCanvasWidget';
+import { RouterNodeModel } from '../Router/RouterNodeModel';
+import { MemoNodeModel } from '../Memo/MemoNodeModel';
 
 const S = {
     Body: styled.div`
@@ -88,6 +90,18 @@ export class BodyWidget extends React.Component<{ app: Application }> {
         this.setState({ selectedRoutes: {} });
     };
 
+    handleAddNode = () => {
+        const { app } = this.props;
+        const engine = app.getDiagramEngine();
+
+        const nodesCount = Object.keys(engine.getModel().getNodes()).length;
+        const node = new MemoNodeModel(`Memo ${nodesCount - 8}`);
+
+        node.setPosition(100 + nodesCount * 50, 100 + nodesCount * 50);
+        engine.getModel().addNode(node);
+        this.forceUpdate();
+    };
+
     render() {
         const { app } = this.props;
         const { drawerOpen, selectedRoutes, expandedStarts } = this.state;
@@ -97,6 +111,7 @@ export class BodyWidget extends React.Component<{ app: Application }> {
                 <S.Header>
                     <div className="title" style={{ width: '150px' }}></div>
                     <Button variant="contained" onClick={() => this.handleToggleDrawer(true)}>表示する経路を変更</Button>
+                    <Button variant="contained" color="secondary" onClick={this.handleAddNode}>Memoを追加</Button>
                 </S.Header>
                 <S.Content>
                     <S.Layer>
@@ -112,7 +127,7 @@ export class BodyWidget extends React.Component<{ app: Application }> {
                 >
                     <div style={{ width: '300px', padding: '20px' }}>
 
-                    <Button
+                        <Button
                             variant="contained"
                             color="primary"
                             fullWidth
