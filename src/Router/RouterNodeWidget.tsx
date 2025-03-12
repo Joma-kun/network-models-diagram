@@ -3,6 +3,7 @@ import * as React from 'react';
 import { RouterNodeModel } from './RouterNodeModel';
 import { DiagramEngine, PortModelAlignment, PortWidget } from '@projectstorm/react-diagrams';
 import styled from '@emotion/styled';
+import RouterSettingsDrawer from './RouterSettingsDrawer';
 
 export interface RouterNodeWidgetProps {
 	node: RouterNodeModel;
@@ -48,8 +49,13 @@ export class RouterNodeWidget extends React.Component<RouterNodeWidgetProps, { i
         };
     }
 
-    handleButtonClick = () => {
+    handleContextMenu = (event: React.MouseEvent) => {
+        event.preventDefault(); // デフォルトのコンテキストメニューを無効化
         this.setState({ isMenuVisible: true });
+    };
+
+    handleCloseDrawer = () => {
+        this.setState({ isMenuVisible: false });
     };
 
     handleInputChange = (event: React.ChangeEvent<HTMLInputElement>, inputName: string) => {
@@ -57,13 +63,13 @@ export class RouterNodeWidget extends React.Component<RouterNodeWidgetProps, { i
     };
 
     handleInputSubmit = () => {
-        const { inputValueA, inputValueB} = this.state;
-        this.props.node.setInputs({ DeviceModel: inputValueA, Hostname: inputValueB});
-        this.setState({ isMenuVisible: false });
+        const { inputValueA, inputValueB } = this.state;
+        this.props.node.setInputs({ DeviceModel: inputValueA, Hostname: inputValueB });
+        this.handleCloseDrawer();
     };
 
     render() {
-        const node = this.props.node;
+        const { node, size } = this.props;
         if (!node) return null;
 
         return (
@@ -71,111 +77,88 @@ export class RouterNodeWidget extends React.Component<RouterNodeWidgetProps, { i
                 className={'router-node'}
                 style={{
                     position: 'relative',
-                    width: this.props.size,
-                    height: this.props.size
+                    width: size,
+                    height: size
                 }}
+                onContextMenu={this.handleContextMenu} // 右クリックでメニューを開く
             >
                 <p style={{
-                position: 'absolute',
-                left: '50%',
-                transform: 'translate(-50%, -90%)',
-                fontSize: '28px',
-                color: 'white'
-            }}>{node.getRouterName()}</p>
-                <S.ImageContainer size={this.props.size}>
+                    position: 'absolute',
+                    left: '50%',
+                    transform: 'translate(-50%, -90%)',
+                    fontSize: '28px',
+                    color: 'white'
+                }}>{node.getRouterName()}</p>
+                <S.ImageContainer size={size}>
                     <img src="router.png" alt="Router" draggable="false"/>
                 </S.ImageContainer>
-                {/* <button
+
+                {/* 設定モーダル (右クリックで開く) */}
+                <RouterSettingsDrawer
+                    isOpen={this.state.isMenuVisible}
+                    onClose={this.handleCloseDrawer}
+                    inputValueA={this.state.inputValueA}
+                    inputValueB={this.state.inputValueB}
+                    onInputChange={this.handleInputChange}
+                    onSave={this.handleInputSubmit}
+                />
+
+                {/* 各ポートのウィジェット */}
+                <PortWidget
                     style={{
-                        position: 'absolute',
-                        top: '65%',
-                        left: '50%',
-                        transform: 'translate(-50%, -50%)'
+                        left: size / 2 - 43,
+                        top: size / 2 + 17,
+                        position: 'absolute'
                     }}
-                    onClick={this.handleButtonClick}
+                    port={node.getPort(PortModelAlignment.LEFT)}
+                    engine={this.props.engine}
                 >
-                    Menu
-                </button> */}
-                {/* {this.state.isMenuVisible &&
-                    <div style={{ position: 'absolute', top: '50%', left: '100%', transform: 'translate(0, -50%)', background: 'white', border: '1px solid black', padding: '10px' }}>
-                        <div>
-                            <label>
-                                DeviceModel
-                                <input
-                                    type="text"
-                                    value={this.state.inputValueA}
-                                    onChange={(e) => this.handleInputChange(e, 'inputValueA')}
-                                />
-                            </label>
-                        </div>
-                        <div>
-                            <label>
-                                Hostname
-                                <input
-                                    type="text"
-                                    value={this.state.inputValueB}
-                                    onChange={(e) => this.handleInputChange(e, 'inputValueB')}
-                                />
-                            </label>
-                        </div>
-                        <button onClick={this.handleInputSubmit}>Close</button>
-                    </div>
-                } */}
-				<PortWidget
-					style={{
-						left: this.props.size / 2 - 43,
-						top: this.props.size / 2 + 17,
-						position: 'absolute'
-					}}
-					port={node.getPort(PortModelAlignment.LEFT)}
-					engine={this.props.engine}
-				>
-					<S.Port />
-				</PortWidget>
+                    <S.Port />
+                </PortWidget>
                 <PortWidget
-					style={{
-						left: this.props.size / 2 + 28,
-						top: this.props.size / 2 - 37,
-						position: 'absolute'
-					}}
-					port={node.getPort(PortModelAlignment.TOP)}
-					engine={this.props.engine}
-				>
-					<S.Port />
-				</PortWidget>
+                    style={{
+                        left: size / 2 + 28,
+                        top: size / 2 - 37,
+                        position: 'absolute'
+                    }}
+                    port={node.getPort(PortModelAlignment.TOP)}
+                    engine={this.props.engine}
+                >
+                    <S.Port />
+                </PortWidget>
                 <PortWidget
-					style={{
-						left: this.props.size / 2 + 28,
-						top: this.props.size / 2 + 17,
-						position: 'absolute'
-					}}
-					port={node.getPort(PortModelAlignment.RIGHT)}
-					engine={this.props.engine}
-				>
-					<S.Port />
-				</PortWidget>
+                    style={{
+                        left: size / 2 + 28,
+                        top: size / 2 + 17,
+                        position: 'absolute'
+                    }}
+                    port={node.getPort(PortModelAlignment.RIGHT)}
+                    engine={this.props.engine}
+                >
+                    <S.Port />
+                </PortWidget>
                 <PortWidget
-					style={{
-						left: this.props.size / 2 - 43,
-						top: this.props.size / 2 - 37,
-						position: 'absolute'
-					}}
-					port={node.getPort(PortModelAlignment.BOTTOM)}
-					engine={this.props.engine}
-				>
-					<S.Port />
-				</PortWidget>
+                    style={{
+                        left: size / 2 - 43,
+                        top: size / 2 - 37,
+                        position: 'absolute'
+                    }}
+                    port={node.getPort(PortModelAlignment.BOTTOM)}
+                    engine={this.props.engine}
+                >
+                    <S.Port />
+                </PortWidget>
                 <PortWidget
-					style={{
-						left: this.props.size / 2 - 8,
-						top: this.props.size / 2 - 9,
-						position: 'absolute'
-					}}
-					port={node.getPort(PortModelAlignment.BOTTOM)}
-					engine={this.props.engine}
-				>
-					<S.Port />
-				</PortWidget>
+                    style={{
+                        left: size / 2 - 8,
+                        top: size / 2 - 9,
+                        position: 'absolute'
+                    }}
+                    port={node.getPort(PortModelAlignment.BOTTOM)}
+                    engine={this.props.engine}
+                >
+                    <S.Port />
+                </PortWidget>
             </div>
         );
     }
