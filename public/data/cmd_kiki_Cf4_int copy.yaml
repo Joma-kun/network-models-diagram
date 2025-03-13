@@ -404,36 +404,65 @@ none:
     Cl7-Cl1:
       icmp:
       - Cl7
-      - Cl9
+      - Cf7
+      - Cf8
+      - Cf9
+      - Cf2
+      - Cf1
+      - Cl1
     Cl7-Cl2:
       icmp:
       - Cl7
       - Cf7
+      - Cf8
+      - Cf9
+      - Cf2
+      - Cl2
     Cl7-Cl3:
       icmp:
       - Cl7
       - Cf7
+      - Cf8
+      - Cf9
+      - Cf2
+      - Cf3
+      - Cl3
     Cl7-Cl4:
       icmp:
       - Cl7
       - Cf7
+      - Cf8
+      - Cf9
+      - Cf2
+      - Cf3
+      - Cf4
+      - Cl4
     Cl7-Cl5:
       icmp:
       - Cl7
       - Cf7
+      - Cf6
+      - Cf5
+      - Cl5
     Cl7-Cl6:
       icmp:
       - Cl7
       - Cf7
+      - Cf6
+      - Cl6
     Cl7-Cl8:
       icmp:
       - Cl7
-      - Cf1
-      - Cl1
+      - Cf7
+      - Cf8
+      - Cl8
     Cl7-Cl9:
       icmp:
       - Cl7
       - Cf7
+      - Cf8
+      - Cf9
+      - Cl9
     Cl8-Cl1:
       icmp:
       - Cl8
