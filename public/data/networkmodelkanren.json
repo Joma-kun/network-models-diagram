@@ -1,0 +1,522 @@
+[ {
+  "Vlan" : "com.example.classes.Vlan@13515b9",
+  "kanren" : [ {
+    "Config" : "com.example.classes.Config@27f920f4"
+  } ]
+}, {
+  "Hostname" : "com.example.classes.Hostname@5187fb8d",
+  "kanren" : [ {
+    "Config" : "com.example.classes.Config@27f920f4"
+  } ]
+}, {
+  "VlanSetting" : "com.example.classes.VlanSetting@2b30e6f3",
+  "kanren" : [ {
+    "Config" : "com.example.classes.Config@27f920f4"
+  } ]
+}, {
+  "EthernetSetting" : "com.example.classes.EthernetSetting@45a09de1",
+  "kanren" : [ {
+    "Config" : "com.example.classes.Config@27f920f4"
+  }, {
+    "Link" : "com.example.classes.Link@2e8f7c74"
+  } ]
+}, {
+  "OspfInterfaceSetting" : "com.example.classes.OspfInterfaceSetting@6c91d031",
+  "kanren" : [ {
+    "OspfSetting" : "com.example.classes.OspfSetting@22405bd"
+  } ]
+}, {
+  "Link" : "com.example.classes.Link@2e8f7c74",
+  "kanren" : [ {
+    "LinkableElement" : "com.example.classes.EthernetSetting@45a09de1"
+  }, {
+    "LinkableElement" : "com.example.classes.EthernetSetting@189c9d53"
+  } ]
+}, {
+  "Vlan" : "com.example.classes.Vlan@df3e648",
+  "kanren" : [ {
+    "Config" : "com.example.classes.Config@6f81b3d1"
+  } ]
+}, {
+  "Hostname" : "com.example.classes.Hostname@2fd813a6",
+  "kanren" : [ {
+    "Config" : "com.example.classes.Config@6f81b3d1"
+  } ]
+}, {
+  "VlanSetting" : "com.example.classes.VlanSetting@7a61b6f5",
+  "kanren" : [ {
+    "Config" : "com.example.classes.Config@6f81b3d1"
+  } ]
+}, {
+  "EthernetSetting" : "com.example.classes.EthernetSetting@189c9d53",
+  "kanren" : [ {
+    "Config" : "com.example.classes.Config@6f81b3d1"
+  }, {
+    "Link" : "com.example.classes.Link@2e8f7c74"
+  } ]
+}, {
+  "OspfInterfaceSetting" : "com.example.classes.OspfInterfaceSetting@a4fe9ae",
+  "kanren" : [ {
+    "OspfSetting" : "com.example.classes.OspfSetting@65659e62"
+  } ]
+}, {
+  "Vlan" : "com.example.classes.Vlan@12c44a25",
+  "kanren" : [ {
+    "Config" : "com.example.classes.Config@6f81b3d1"
+  } ]
+}, {
+  "Vlan" : "com.example.classes.Vlan@6ece2b2b",
+  "kanren" : [ {
+    "Config" : "com.example.classes.Config@6f81b3d1"
+  } ]
+}, {
+  "VlanSetting" : "com.example.classes.VlanSetting@1b39adc5",
+  "kanren" : [ {
+    "Config" : "com.example.classes.Config@6f81b3d1"
+  } ]
+}, {
+  "VlanSetting" : "com.example.classes.VlanSetting@5266b64e",
+  "kanren" : [ {
+    "Config" : "com.example.classes.Config@6f81b3d1"
+  } ]
+}, {
+  "EthernetSetting" : "com.example.classes.EthernetSetting@62435b45",
+  "kanren" : [ {
+    "Config" : "com.example.classes.Config@6f81b3d1"
+  }, {
+    "Link" : "com.example.classes.Link@2bca7ebc"
+  } ]
+}, {
+  "EthernetSetting" : "com.example.classes.EthernetSetting@7d4bb355",
+  "kanren" : [ {
+    "Config" : "com.example.classes.Config@6f81b3d1"
+  }, {
+    "Link" : "com.example.classes.Link@4cf9694d"
+  } ]
+}, {
+  "Link" : "com.example.classes.Link@2bca7ebc",
+  "kanren" : [ {
+    "LinkableElement" : "com.example.classes.EthernetSetting@62435b45"
+  }, {
+    "LinkableElement" : "com.example.classes.EthernetSetting@39c5f2d7"
+  } ]
+}, {
+  "Link" : "com.example.classes.Link@4cf9694d",
+  "kanren" : [ {
+    "LinkableElement" : "com.example.classes.EthernetSetting@7d4bb355"
+  }, {
+    "LinkableElement" : "com.example.classes.EthernetSetting@63e94f73"
+  } ]
+}, {
+  "OspfInterfaceSetting" : "com.example.classes.OspfInterfaceSetting@34189ae4",
+  "kanren" : [ {
+    "OspfSetting" : "com.example.classes.OspfSetting@65659e62"
+  } ]
+}, {
+  "OspfInterfaceSetting" : "com.example.classes.OspfInterfaceSetting@14694629",
+  "kanren" : [ {
+    "OspfSetting" : "com.example.classes.OspfSetting@65659e62"
+  } ]
+}, {
+  "OspfVirtualLink" : "com.example.classes.OspfVirtualLink@6c2ee586",
+  "kanren" : [ {
+    "OspfSetting" : "com.example.classes.OspfSetting@65659e62"
+  } ]
+}, {
+  "OspfVirtualLink" : "com.example.classes.OspfVirtualLink@6b9a5a4f",
+  "kanren" : [ {
+    "OspfSetting" : "com.example.classes.OspfSetting@65659e62"
+  } ]
+}, {
+  "Vlan" : "com.example.classes.Vlan@45237721",
+  "kanren" : [ {
+    "Config" : "com.example.classes.Config@1b252262"
+  } ]
+}, {
+  "Hostname" : "com.example.classes.Hostname@5e3aa8d6",
+  "kanren" : [ {
+    "Config" : "com.example.classes.Config@1b252262"
+  } ]
+}, {
+  "Vlan" : "com.example.classes.Vlan@55cfd1d5",
+  "kanren" : [ {
+    "Config" : "com.example.classes.Config@1b252262"
+  } ]
+}, {
+  "VlanSetting" : "com.example.classes.VlanSetting@b0b2e32",
+  "kanren" : [ {
+    "Config" : "com.example.classes.Config@1b252262"
+  } ]
+}, {
+  "VlanSetting" : "com.example.classes.VlanSetting@fc5b9d",
+  "kanren" : [ {
+    "Config" : "com.example.classes.Config@1b252262"
+  } ]
+}, {
+  "EthernetSetting" : "com.example.classes.EthernetSetting@39c5f2d7",
+  "kanren" : [ {
+    "Config" : "com.example.classes.Config@1b252262"
+  }, {
+    "Link" : "com.example.classes.Link@2bca7ebc"
+  } ]
+}, {
+  "OspfInterfaceSetting" : "com.example.classes.OspfInterfaceSetting@122fdd43",
+  "kanren" : [ {
+    "OspfSetting" : "com.example.classes.OspfSetting@67cbc97c"
+  } ]
+}, {
+  "OspfInterfaceSetting" : "com.example.classes.OspfInterfaceSetting@40871b8a",
+  "kanren" : [ {
+    "OspfSetting" : "com.example.classes.OspfSetting@67cbc97c"
+  } ]
+}, {
+  "OspfVirtualLink" : "com.example.classes.OspfVirtualLink@224590b4",
+  "kanren" : [ {
+    "OspfSetting" : "com.example.classes.OspfSetting@67cbc97c"
+  } ]
+}, {
+  "EthernetSetting" : "com.example.classes.EthernetSetting@34808d61",
+  "kanren" : [ {
+    "Config" : "com.example.classes.Config@1b252262"
+  }, {
+    "Link" : "com.example.classes.Link@7352d119"
+  } ]
+}, {
+  "OspfVirtualLink" : "com.example.classes.OspfVirtualLink@58299b77",
+  "kanren" : [ {
+    "OspfSetting" : "com.example.classes.OspfSetting@67cbc97c"
+  } ]
+}, {
+  "Vlan" : "com.example.classes.Vlan@2e446426",
+  "kanren" : [ {
+    "Config" : "com.example.classes.Config@208a90b3"
+  } ]
+}, {
+  "Hostname" : "com.example.classes.Hostname@1e1f0f0a",
+  "kanren" : [ {
+    "Config" : "com.example.classes.Config@208a90b3"
+  } ]
+}, {
+  "Vlan" : "com.example.classes.Vlan@7e02cb69",
+  "kanren" : [ {
+    "Config" : "com.example.classes.Config@208a90b3"
+  } ]
+}, {
+  "VlanSetting" : "com.example.classes.VlanSetting@736af5db",
+  "kanren" : [ {
+    "Config" : "com.example.classes.Config@208a90b3"
+  } ]
+}, {
+  "VlanSetting" : "com.example.classes.VlanSetting@156bc3e3",
+  "kanren" : [ {
+    "Config" : "com.example.classes.Config@208a90b3"
+  } ]
+}, {
+  "EthernetSetting" : "com.example.classes.EthernetSetting@51baf1f6",
+  "kanren" : [ {
+    "Config" : "com.example.classes.Config@208a90b3"
+  } ]
+}, {
+  "OspfInterfaceSetting" : "com.example.classes.OspfInterfaceSetting@398b312b",
+  "kanren" : [ {
+    "OspfSetting" : "com.example.classes.OspfSetting@a79cd9d"
+  } ]
+}, {
+  "OspfInterfaceSetting" : "com.example.classes.OspfInterfaceSetting@1d6bcfec",
+  "kanren" : [ {
+    "OspfSetting" : "com.example.classes.OspfSetting@a79cd9d"
+  } ]
+}, {
+  "OspfVirtualLink" : "com.example.classes.OspfVirtualLink@56547379",
+  "kanren" : [ {
+    "OspfSetting" : "com.example.classes.OspfSetting@a79cd9d"
+  } ]
+}, {
+  "EthernetSetting" : "com.example.classes.EthernetSetting@50671d04",
+  "kanren" : [ {
+    "Config" : "com.example.classes.Config@208a90b3"
+  }, {
+    "Link" : "com.example.classes.Link@7352d119"
+  } ]
+}, {
+  "OspfVirtualLink" : "com.example.classes.OspfVirtualLink@30856c4a",
+  "kanren" : [ {
+    "OspfSetting" : "com.example.classes.OspfSetting@a79cd9d"
+  } ]
+}, {
+  "Link" : "com.example.classes.Link@7352d119",
+  "kanren" : [ {
+    "LinkableElement" : "com.example.classes.EthernetSetting@34808d61"
+  }, {
+    "LinkableElement" : "com.example.classes.EthernetSetting@50671d04"
+  } ]
+}, {
+  "EthernetSetting" : "com.example.classes.EthernetSetting@6e8bbb1",
+  "kanren" : [ {
+    "Link" : "com.example.classes.Link@6e8f1955"
+  } ]
+}, {
+  "Link" : "com.example.classes.Link@6e8f1955",
+  "kanren" : [ {
+    "LinkableElement" : "com.example.classes.EthernetSetting@6e8bbb1"
+  }, {
+    "LinkableElement" : "com.example.classes.EthernetSetting@538f20e3"
+  } ]
+}, {
+  "Vlan" : "com.example.classes.Vlan@10cc025c",
+  "kanren" : [ {
+    "Config" : "com.example.classes.Config@7573cff2"
+  } ]
+}, {
+  "Hostname" : "com.example.classes.Hostname@533a06c7",
+  "kanren" : [ {
+    "Config" : "com.example.classes.Config@7573cff2"
+  } ]
+}, {
+  "Vlan" : "com.example.classes.Vlan@2e8ea344",
+  "kanren" : [ {
+    "Config" : "com.example.classes.Config@7573cff2"
+  } ]
+}, {
+  "VlanSetting" : "com.example.classes.VlanSetting@5e209a2b",
+  "kanren" : [ {
+    "Config" : "com.example.classes.Config@7573cff2"
+  } ]
+}, {
+  "VlanSetting" : "com.example.classes.VlanSetting@5d2fa316",
+  "kanren" : [ {
+    "Config" : "com.example.classes.Config@7573cff2"
+  } ]
+}, {
+  "EthernetSetting" : "com.example.classes.EthernetSetting@578e4b3f",
+  "kanren" : [ {
+    "Config" : "com.example.classes.Config@7573cff2"
+  }, {
+    "Link" : "com.example.classes.Link@5034a276"
+  } ]
+}, {
+  "OspfInterfaceSetting" : "com.example.classes.OspfInterfaceSetting@c414609",
+  "kanren" : [ {
+    "OspfSetting" : "com.example.classes.OspfSetting@4569e844"
+  } ]
+}, {
+  "OspfInterfaceSetting" : "com.example.classes.OspfInterfaceSetting@56ea6468",
+  "kanren" : [ {
+    "OspfSetting" : "com.example.classes.OspfSetting@4569e844"
+  } ]
+}, {
+  "OspfVirtualLink" : "com.example.classes.OspfVirtualLink@76fd5ab0",
+  "kanren" : [ {
+    "OspfSetting" : "com.example.classes.OspfSetting@4569e844"
+  } ]
+}, {
+  "EthernetSetting" : "com.example.classes.EthernetSetting@538f20e3",
+  "kanren" : [ {
+    "Config" : "com.example.classes.Config@7573cff2"
+  }, {
+    "Link" : "com.example.classes.Link@6e8f1955"
+  } ]
+}, {
+  "OspfVirtualLink" : "com.example.classes.OspfVirtualLink@55785595",
+  "kanren" : [ {
+    "OspfSetting" : "com.example.classes.OspfSetting@4569e844"
+  } ]
+}, {
+  "Link" : "com.example.classes.Link@5034a276",
+  "kanren" : [ {
+    "LinkableElement" : "com.example.classes.EthernetSetting@578e4b3f"
+  }, {
+    "LinkableElement" : "com.example.classes.EthernetSetting@5f88818a"
+  } ]
+}, {
+  "Vlan" : "com.example.classes.Vlan@66a2e341",
+  "kanren" : [ {
+    "Config" : "com.example.classes.Config@4c005a1a"
+  } ]
+}, {
+  "Hostname" : "com.example.classes.Hostname@7161c6fd",
+  "kanren" : [ {
+    "Config" : "com.example.classes.Config@4c005a1a"
+  } ]
+}, {
+  "Vlan" : "com.example.classes.Vlan@4a2db7b3",
+  "kanren" : [ {
+    "Config" : "com.example.classes.Config@4c005a1a"
+  } ]
+}, {
+  "VlanSetting" : "com.example.classes.VlanSetting@3be4fd5c",
+  "kanren" : [ {
+    "Config" : "com.example.classes.Config@4c005a1a"
+  } ]
+}, {
+  "VlanSetting" : "com.example.classes.VlanSetting@44cd92f3",
+  "kanren" : [ {
+    "Config" : "com.example.classes.Config@4c005a1a"
+  } ]
+}, {
+  "EthernetSetting" : "com.example.classes.EthernetSetting@5f88818a",
+  "kanren" : [ {
+    "Config" : "com.example.classes.Config@4c005a1a"
+  }, {
+    "Link" : "com.example.classes.Link@5034a276"
+  } ]
+}, {
+  "OspfInterfaceSetting" : "com.example.classes.OspfInterfaceSetting@78bf25e7",
+  "kanren" : [ {
+    "OspfSetting" : "com.example.classes.OspfSetting@4b3fdb5"
+  } ]
+}, {
+  "OspfInterfaceSetting" : "com.example.classes.OspfInterfaceSetting@642d39b1",
+  "kanren" : [ {
+    "OspfSetting" : "com.example.classes.OspfSetting@4b3fdb5"
+  } ]
+}, {
+  "OspfVirtualLink" : "com.example.classes.OspfVirtualLink@4cdf75cd",
+  "kanren" : [ {
+    "OspfSetting" : "com.example.classes.OspfSetting@4b3fdb5"
+  } ]
+}, {
+  "EthernetSetting" : "com.example.classes.EthernetSetting@57c0290d",
+  "kanren" : [ {
+    "Config" : "com.example.classes.Config@4c005a1a"
+  }, {
+    "Link" : "com.example.classes.Link@5bbce5d5"
+  } ]
+}, {
+  "OspfVirtualLink" : "com.example.classes.OspfVirtualLink@56d1be0f",
+  "kanren" : [ {
+    "OspfSetting" : "com.example.classes.OspfSetting@4b3fdb5"
+  } ]
+}, {
+  "Link" : "com.example.classes.Link@5bbce5d5",
+  "kanren" : [ {
+    "LinkableElement" : "com.example.classes.EthernetSetting@57c0290d"
+  }, {
+    "LinkableElement" : "com.example.classes.EthernetSetting@29bb4c71"
+  } ]
+}, {
+  "Vlan" : "com.example.classes.Vlan@3a2456b1",
+  "kanren" : [ {
+    "Config" : "com.example.classes.Config@6c7a9272"
+  } ]
+}, {
+  "Hostname" : "com.example.classes.Hostname@61dea63c",
+  "kanren" : [ {
+    "Config" : "com.example.classes.Config@6c7a9272"
+  } ]
+}, {
+  "Vlan" : "com.example.classes.Vlan@65219541",
+  "kanren" : [ {
+    "Config" : "com.example.classes.Config@6c7a9272"
+  } ]
+}, {
+  "VlanSetting" : "com.example.classes.VlanSetting@7d28c68a",
+  "kanren" : [ {
+    "Config" : "com.example.classes.Config@6c7a9272"
+  } ]
+}, {
+  "VlanSetting" : "com.example.classes.VlanSetting@69536055",
+  "kanren" : [ {
+    "Config" : "com.example.classes.Config@6c7a9272"
+  } ]
+}, {
+  "EthernetSetting" : "com.example.classes.EthernetSetting@37512c6d",
+  "kanren" : [ {
+    "Config" : "com.example.classes.Config@6c7a9272"
+  }, {
+    "Link" : "com.example.classes.Link@2e15ac18"
+  } ]
+}, {
+  "OspfInterfaceSetting" : "com.example.classes.OspfInterfaceSetting@5e333c5b",
+  "kanren" : [ {
+    "OspfSetting" : "com.example.classes.OspfSetting@5d70759f"
+  } ]
+}, {
+  "OspfInterfaceSetting" : "com.example.classes.OspfInterfaceSetting@6514ad81",
+  "kanren" : [ {
+    "OspfSetting" : "com.example.classes.OspfSetting@5d70759f"
+  } ]
+}, {
+  "OspfVirtualLink" : "com.example.classes.OspfVirtualLink@173728be",
+  "kanren" : [ {
+    "OspfSetting" : "com.example.classes.OspfSetting@5d70759f"
+  } ]
+}, {
+  "EthernetSetting" : "com.example.classes.EthernetSetting@29bb4c71",
+  "kanren" : [ {
+    "Config" : "com.example.classes.Config@6c7a9272"
+  }, {
+    "Link" : "com.example.classes.Link@5bbce5d5"
+  } ]
+}, {
+  "OspfVirtualLink" : "com.example.classes.OspfVirtualLink@6e2d7cf9",
+  "kanren" : [ {
+    "OspfSetting" : "com.example.classes.OspfSetting@5d70759f"
+  } ]
+}, {
+  "Link" : "com.example.classes.Link@2e15ac18",
+  "kanren" : [ {
+    "LinkableElement" : "com.example.classes.EthernetSetting@37512c6d"
+  }, {
+    "LinkableElement" : "com.example.classes.EthernetSetting@6dc694d4"
+  } ]
+}, {
+  "Vlan" : "com.example.classes.Vlan@73621f00",
+  "kanren" : [ {
+    "Config" : "com.example.classes.Config@4903bc"
+  } ]
+}, {
+  "Hostname" : "com.example.classes.Hostname@76ad7f21",
+  "kanren" : [ {
+    "Config" : "com.example.classes.Config@4903bc"
+  } ]
+}, {
+  "Vlan" : "com.example.classes.Vlan@3d47c174",
+  "kanren" : [ {
+    "Config" : "com.example.classes.Config@4903bc"
+  } ]
+}, {
+  "VlanSetting" : "com.example.classes.VlanSetting@5e3e43c3",
+  "kanren" : [ {
+    "Config" : "com.example.classes.Config@4903bc"
+  } ]
+}, {
+  "VlanSetting" : "com.example.classes.VlanSetting@43f77b52",
+  "kanren" : [ {
+    "Config" : "com.example.classes.Config@4903bc"
+  } ]
+}, {
+  "EthernetSetting" : "com.example.classes.EthernetSetting@6dc694d4",
+  "kanren" : [ {
+    "Config" : "com.example.classes.Config@4903bc"
+  }, {
+    "Link" : "com.example.classes.Link@2e15ac18"
+  } ]
+}, {
+  "OspfInterfaceSetting" : "com.example.classes.OspfInterfaceSetting@6e89a479",
+  "kanren" : [ {
+    "OspfSetting" : "com.example.classes.OspfSetting@755b7880"
+  } ]
+}, {
+  "OspfInterfaceSetting" : "com.example.classes.OspfInterfaceSetting@4285c230",
+  "kanren" : [ {
+    "OspfSetting" : "com.example.classes.OspfSetting@755b7880"
+  } ]
+}, {
+  "OspfVirtualLink" : "com.example.classes.OspfVirtualLink@3a501cd9",
+  "kanren" : [ {
+    "OspfSetting" : "com.example.classes.OspfSetting@755b7880"
+  } ]
+}, {
+  "EthernetSetting" : "com.example.classes.EthernetSetting@63e94f73",
+  "kanren" : [ {
+    "Config" : "com.example.classes.Config@4903bc"
+  }, {
+    "Link" : "com.example.classes.Link@4cf9694d"
+  } ]
+}, {
+  "OspfVirtualLink" : "com.example.classes.OspfVirtualLink@40e0951b",
+  "kanren" : [ {
+    "OspfSetting" : "com.example.classes.OspfSetting@755b7880"
+  } ]
+} ]
