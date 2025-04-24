@@ -1,0 +1,22 @@
+[ {
+  "error" : false,
+  "errortype" : "accessVlanの不一致",
+  "instances" : {
+    "8_campus_ospf_VLANの不一致.asta/8_campus_ospf_VLANの不一致/Tobemodel/EthernetSetting/Cf3_ES4" : "accessVlan",
+    "8_campus_ospf_VLANの不一致.asta/8_campus_ospf_VLANの不一致/Tobemodel/EthernetSetting/Cf4_ES40" : "accessVlan"
+  }
+}, {
+  "error" : false,
+  "errortype" : "speedの不一致",
+  "instances" : {
+    "8_campus_ospf_VLANの不一致.asta/8_campus_ospf_VLANの不一致/Tobemodel/EthernetSetting/Cf3_ES4" : "speed",
+    "8_campus_ospf_VLANの不一致.asta/8_campus_ospf_VLANの不一致/Tobemodel/EthernetSetting/Cf4_ES40" : "speed"
+  }
+}, {
+  "error" : false,
+  "errortype" : "duplexの不一致",
+  "instances" : {
+    "8_campus_ospf_VLANの不一致.asta/8_campus_ospf_VLANの不一致/Tobemodel/EthernetSetting/Cf3_ES4" : "duplex",
+    "8_campus_ospf_VLANの不一致.asta/8_campus_ospf_VLANの不一致/Tobemodel/EthernetSetting/Cf4_ES40" : "duplex"
+  }
+} ]
