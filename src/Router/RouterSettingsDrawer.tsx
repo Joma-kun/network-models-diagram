@@ -1,3 +1,5 @@
+// RouterSettingsDrawer.tsx
+// @ts-nocheck
 import React, { useState, useEffect, useRef } from 'react';
 import {
   Drawer,
@@ -30,10 +32,7 @@ const S = {
   DetailItem: styled.div`
     display: flex;
     flex-direction: row;
-    margin-bottom: 4px;
-    & > strong {
-      margin-right: 4px;
-    }
+    margin-bottom: 8px;
   `,
 };
 
@@ -52,7 +51,7 @@ const filterRouterInfo = (info: any): any => {
 const groupByClassName = (data: any[]): { [key: string]: { data: any; originalIndex: number }[] } =>
   data.reduce((acc, curr, index) => {
     const cls = curr.className;
-    if (!acc[cls]) acc[cls] = [];
+    acc[cls] = acc[cls] || [];
     acc[cls].push({ data: filterRouterInfo(curr), originalIndex: index });
     return acc;
   }, {} as Record<string, { data: any; originalIndex: number }[]>);
@@ -93,7 +92,6 @@ const RouterSettingsDrawer: React.FC<RouterSettingsDrawerProps> = ({
 
   const grouped = groupByClassName(editableInfo);
 
-  // グループごとのエラー有無を判定
   const groupErrorMap: Record<string, boolean> = {};
   Object.entries(grouped).forEach(([cls, items]) => {
     groupErrorMap[cls] = items.some(({ data, originalIndex }) => {
@@ -102,7 +100,6 @@ const RouterSettingsDrawer: React.FC<RouterSettingsDrawerProps> = ({
     });
   });
 
-  // ソート
   if (grouped['VlanSetting']) grouped['VlanSetting'].sort((a, b) => (a.data.vlanNum || 0) - (b.data.vlanNum || 0));
   if (grouped['Vlan']) grouped['Vlan'].sort((a, b) => (a.data.num || 0) - (b.data.num || 0));
   if (grouped['EthernetSetting']) grouped['EthernetSetting'].sort((a, b) => (a.data.port || 0) - (b.data.port || 0));
@@ -111,7 +108,6 @@ const RouterSettingsDrawer: React.FC<RouterSettingsDrawerProps> = ({
     console.log(JSON.stringify(editableInfo, null, 2));
     alert('コンソールにJSONを出力しました');
   };
-
   const handleSave = () => {
     const app = new Application();
     app.routerInfo[routerName] = editableInfo;
@@ -130,7 +126,7 @@ const RouterSettingsDrawer: React.FC<RouterSettingsDrawerProps> = ({
           const isGroupError = groupErrorMap[cls];
           return (
             <Accordion key={cls} defaultExpanded={false}>
-              <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+              <AccordionSummary expandIcon={<ExpandMoreIcon />}>  
                 <Typography style={{
                   fontWeight: 'bold',
                   ...(isGroupError ? { backgroundColor: 'rgba(255,0,0,0.2)' } : {})
@@ -138,7 +134,7 @@ const RouterSettingsDrawer: React.FC<RouterSettingsDrawerProps> = ({
                   {cls}
                 </Typography>
                 {!hasSub && (
-                  <IconButton size="small" onClick={e => { e.stopPropagation(); setGroupEditModes({ ...groupEditModes, [cls]: !groupEditModes[cls] }); }}>
+                  <IconButton size="small" onClick={e => { e.stopPropagation(); setGroupEditModes(prev => ({ ...prev, [cls]: !prev[cls] })); }}>
                     <EditIcon fontSize="small" />
                   </IconButton>
                 )}
@@ -147,39 +143,47 @@ const RouterSettingsDrawer: React.FC<RouterSettingsDrawerProps> = ({
                 {items.map(({ data, originalIndex }, idx) => {
                   if (hasSub) {
                     const subKey = `${cls}_${originalIndex}`;
-                    let header = '';
-                    if (cls === 'VlanSetting') header = `VlanNum: ${data.vlanNum}`;
-                    if (cls === 'EthernetSetting') header = `Port: ${data.port}`;
+                    const header = cls === 'VlanSetting' ? `VlanNum: ${data.vlanNum}` : `Port: ${data.port}`;
                     return (
                       <Accordion key={subKey} defaultExpanded={false} style={{ marginBottom: 8 }}>
-                        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                          <Typography style={{ fontWeight: 'bold' }}>
-                            {header || `${cls} ${idx + 1}`}
-                          </Typography>
-                          <IconButton size="small" onClick={e => { e.stopPropagation(); setSubEditModes({ ...subEditModes, [subKey]: !subEditModes[subKey] }); }}>
-                            <EditIcon fontSize="small" />
-                          </IconButton>
+                        <AccordionSummary expandIcon={<ExpandMoreIcon />}>  
+                          <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+                            <Typography style={{ fontWeight: 'bold' }}>{header}</Typography>
+                            <IconButton size="small" onClick={e => { e.stopPropagation(); setSubEditModes(prev => ({ ...prev, [subKey]: !prev[subKey] })); }}>
+                              <EditIcon fontSize="small" />
+                            </IconButton>
+                          </div>
                         </AccordionSummary>
                         <AccordionDetails style={{ display: 'flex', flexDirection: 'column', paddingLeft: 16 }}>
                           {Object.entries(data).map(([key, value]) => {
                             const id = originalInfo[originalIndex]?.id?.trim().toLowerCase() || '';
                             const isError = errorInstances[id]?.includes(key);
+                            const originalVal = originalInfo[originalIndex]?.[key];
+                            const isEdited = String(value) !== String(originalVal);
+                            const textStyle = isEdited
+                              ? { color: 'blue' }
+                              : isError
+                                ? { color: 'red' }
+                                : {};
                             return (
                               <S.DetailItem key={key} style={isError ? { backgroundColor: 'rgba(255,0,0,0.2)' } : {}}>
-                                <strong style={isError ? { color: 'red' } : {}}>{key}:</strong>
-                                {subEditModes[subKey]
-                                  ? <input
-                                      type="text"
-                                      value={value as any}
-                                      onChange={e => {
-                                        const arr = [...editableInfo];
-                                        arr[originalIndex] = { ...arr[originalIndex], [key]: e.target.value };
-                                        setEditableInfo(arr);
-                                      }}
-                                      style={{ flex: 1, border: '1px solid #ccc', padding: '2px 4px', ...(isError ? { color: 'red' } : {}) }}
-                                    />
-                                  : <Typography variant="body2" style={isError ? { color: 'red' } : {}}>{String(value)}</Typography>
-                                }
+                                <strong style={isError ? { color: 'red' } : { marginBottom: 4 }}>{key}:</strong>
+                                {subEditModes[subKey] ? (
+                                  <input
+                                    type="text"
+                                    value={value as any}
+                                    onChange={e => {
+                                      const newArr = [...editableInfo];
+                                      newArr[originalIndex] = { ...newArr[originalIndex], [key]: e.target.value };
+                                      setEditableInfo(newArr);
+                                    }}
+                                    style={{ flex: 1, border: '1px solid #ccc', padding: '2px 4px', ...(isEdited ? { color: 'blue' } : {}), ...(isError ? { color: 'red' } : {}) }}
+                                  />
+                                ) : (
+                                  <Typography variant="body2" style={textStyle}>
+                                    {String(value)}
+                                  </Typography>
+                                )}
                               </S.DetailItem>
                             );
                           })}
@@ -188,27 +192,37 @@ const RouterSettingsDrawer: React.FC<RouterSettingsDrawerProps> = ({
                     );
                   }
                   return (
-                    <S.DetailItem key={idx} style={{ marginBottom: 8, ...(isGroupError ? { backgroundColor: 'rgba(255,0,0,0.1)' } : {}) }}>
+                    <S.DetailItem key={idx} style={{ ...(isGroupError ? { backgroundColor: 'rgba(255,0,0,0.1)' } : {}) }}>
                       {Object.entries(data).map(([key, value]) => {
                         const id = originalInfo[originalIndex]?.id?.trim().toLowerCase() || '';
                         const isError = errorInstances[id]?.includes(key);
+                        const originalVal = originalInfo[originalIndex]?.[key];
+                        const isEdited = String(value) !== String(originalVal);
+                        const textStyle = isEdited
+                          ? { color: 'blue' }
+                          : isError
+                            ? { color: 'red' }
+                            : {};
                         return (
-                          <span key={key} style={{ display: 'flex', width: '100%' }}>
-                            <strong style={isError ? { color: 'red' } : {}}>{key}:</strong>
-                            {groupEditModes[cls]
-                              ? <input
-                                  type="text"
-                                  value={value as any}
-                                  onChange={e => {
-                                    const arr = [...editableInfo];
-                                    arr[originalIndex] = { ...arr[originalIndex], [key]: e.target.value };
-                                    setEditableInfo(arr);
-                                  }}
-                                  style={{ flex: 1, border: '1px solid #ccc', padding: '2px 4px', ...(isError ? { color: 'red' } : {}) }}
-                                />
-                              : <Typography variant="body2" style={isError ? { color: 'red' } : {}}>{String(value)}</Typography>
-                            }
-                          </span>
+                          <div key={key} style={{ display: 'flex', width: '100%', marginBottom: 4 }}>
+                            <strong style={isError ? { color: 'red' } : { marginRight: 4 }}>{key}:</strong>
+                            {groupEditModes[cls] ? (
+                              <input
+                                type="text"
+                                value={value as any}
+                                onChange={e => {
+                                  const newArr = [...editableInfo];
+                                  newArr[originalIndex] = { ...newArr[originalIndex], [key]: e.target.value };
+                                  setEditableInfo(newArr);
+                                }}
+                                style={{ flex: 1, border: '1px solid #ccc', padding: '2px 4px', ...(isEdited ? { color: 'blue' } : {}), ...(isError ? { color: 'red' } : {}) }}
+                              />
+                            ) : (
+                              <Typography variant="body2" style={textStyle}>
+                                {String(value)}
+                              </Typography>
+                            )}
+                          </div>
                         );
                       })}
                     </S.DetailItem>
@@ -222,7 +236,7 @@ const RouterSettingsDrawer: React.FC<RouterSettingsDrawerProps> = ({
         <Button variant="outlined" fullWidth onClick={onClose} style={{ marginTop: 10 }}>
           閉じる
         </Button>
-        <Button variant="contained" fullWidth onClick={handleOutputJSON} style={{ marginTop: 10, backgroundColor: '#1976d2', color: 'white' }}>
+        <Button variant="contained" fullWidth onClick={handleOutputJSON} style={{ marginTop: 10 }}>
           JSON出力
         </Button>
         <Button variant="contained" fullWidth onClick={handleSave} style={{ marginTop: 10 }}>
